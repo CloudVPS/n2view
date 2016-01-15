@@ -1,0 +1,80 @@
+.OPIconBar {
+	list-style-type: none;	
+	height: 78px;
+	padding-left: 6px;
+	background-image: url(/images/n2/iconBarBackground.gif);    
+    background-repeat: repeat-x;
+    font-family: Lucida Grande,Lucida Sans, sans-serif;
+}
+
+.OPIconBarItem, .OPIconBarSpacerItem {
+	float: left;
+	height: 78px;
+}
+
+.OPIconBarSpacerItem {
+	background-image: url(/images/n2/iconBarSeparator.gif);	
+	width: 1px;
+	background-repeat: no-repeat;
+	margin-left: 6px;
+	margin-right: 6px;
+}
+
+.OPIconBarItem table {
+	border-collapse: collapse;
+	height: 78px;
+	margin-left: 1px;
+}
+
+.OPIconBarItem .description, .OPIconBarItem .icon {
+	cursor: default;
+	text-align: center;
+}
+
+.OPIconBarItem .icon {
+	padding: 30px 5px 0px 5px;	
+	height: 30px;
+}
+
+.OPIconBarItem .description {
+	padding-top: 2px;
+	height: 25px;
+	font-size:11px;
+	text-shadow: 0px 1px 1px #fff; 
+}
+
+.OPIconBarItem .left, .OPIconBarItem .right {
+	background-repeat: repeat-x;
+	width: 4px;
+}
+
+.OPIconBarItem .center {
+	padding-left: 5px;
+	padding-right: 5px;
+	height: 78px;
+	display: block;	
+}
+
+.OPIconBarItem.active .left {
+	background-image: url(/images/n2/iconBarSelectedLeft.gif);	
+}
+
+.OPIconBarItem.active .center {
+	background-image: url(/images/n2/iconBarSelectedMiddle.gif);
+}
+
+.OPIconBarItem.active .right {
+	background-image: url(/images/n2/iconBarSelectedRight.gif);	
+}
+
+.inactiveBrowserWindow .OPIconBarItem.active .left {
+	background-image: url(/images/n2/iconBarSelectedLeftInactive.gif);	
+}
+
+.inactiveBrowserWindow .OPIconBarItem.active .center {
+	background-image: url(/images/n2/iconBarSelectedMiddleInactive.png);
+}
+
+.inactiveBrowserWindow .OPIconBarItem.active .right {
+	background-image: url(/images/n2/iconBarSelectedRightInactive.gif);	
+}

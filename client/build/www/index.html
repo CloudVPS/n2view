@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	        
+	    <title>N2</title>
+	    <link rel="stylesheet" href="css/stylesheet.css" type="text/css" media="screen" charset="utf-8" />
+		<script type="text/javascript">if(!console) console = { log : function () {} };</script>
+	    <script src="js/lib/minimized.js"></script>
+	    <script type="text/javascript">
+	    	var init = function () {
+	    		$().trail("configure", N2trailConfig);
+	    		if($.browser.msie && $.browser.version < 8){
+	    			$("#unsupportedInternetExplorer").trail();
+	    		} else {
+		            N2.data.initialize();
+		            N2.data.timeOutDurations = {
+			    		host : 10000,
+			    		grid : 10000,
+			    		chart : 10000
+			    	};
+		            ko.applyBindings(viewModel);
+		            n2Router = new N2Router();
+	    		}
+	    	};
+	    	
+		    if($.browser.msie){
+		    	window.onload = init;
+		    } else {
+		    	$(document).ready(init);
+		    }
+	   </script>
+	</head>
+	<body>
+		<div id="unsupportedBrowser" class="trail">
+			<div id="unsupportedInternetExplorer" class="trail">
+				<div class="message" style="font-size: 0.8em">
+					N2 only supports Internet Explorer 9 and higher. Please upgrade your browser.
+				</div>
+			</div>
+		</div>
+		<div id="bigLoader" class="loaderTrail">
+			<div id="bootLoader">
+	    		<center>
+	    			<div class="background"></div>
+		    		<div class="message"></div>
+					<div id="bootLoaderSpinner"></div>
+	    		</center>
+	    	</div>
+		</div>
+	    <div id="boot" class="trail">
+		</div>
+	    <div id="login" class="trail">
+	        <form id="loginForm">
+	            <table border="0">
+	                <tr>
+	                    <td>
+	                        <label for="username" class="login-label" id="username-label">Username</label>
+	                    </td>
+	                    <td>
+	                        <input type="text" name="username" id="username"/><br />
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>
+	                        <label for="password" class="login-label" id="password-label">Password</label>
+	                    </td>
+	                    <td>
+	                        <input type="password" name="password" id="password"/><br />
+	                    </td>
+	                </tr>
+	            </table>
+	            <input type="hidden" name="redirect" id="redirect" data-bind="value: redirect()"/>
+	            <div id="loginMessage" style="float: left; margin-top: 10px; font-size: 9px;">&nbsp;</div>
+	        </form>
+	    </div>
+	    <div id="main" class="trail">
+			<div id="menuBar">
+				<ul>
+					<li>
+						<span id="logo" class="ui-button ui-widget ui-state-default ui-button-text-only ui-deep">
+	    					<span class="ui-button-text">
+								<img src="images/n2logo.png">
+							</span>
+	    				</span>
+						
+					</li>
+					<li>
+						<div id="hostsSearch" class="menu">
+							<div class="searchWidget">
+								<input id="search" class="bigSearch" title="Search name, ip or status" type="text"/>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div id="gridMenu" class="menu">
+			                <input type="radio" id="allButton" name="gridMenu" onclick="document.location.href='#!hosts/filtered/all'"/><label for="allButton">All</label> 
+			                <input type="radio" id="issuesButton" name="gridMenu" onclick="document.location.href='#!hosts/filtered/issues'"/><label for="issuesButton">Issues</label> 
+						</div>
+					</li>
+					<li>
+						<div id="singleHostHideBackButton">
+							<div id="backButton" class="menu">
+								<a data-bind="attr : { href : '#!hosts/filtered/' + gridView() }">Servers</a>
+							</div>
+						</div>
+					</li>
+					<li>
+			            <div id="hostMenu" class="menu">
+			                <input type="radio" id="informationButton" name="hostMenu" data-bind="attr : { onclick: 'document.location.href=\'' + hostUrlWrap('information') + '\';'}"/><label for="informationButton">General</label> 
+			                <input type="radio" id="detailsButton" name="hostMenu" data-bind="attr : { onclick: 'document.location.href=\'' + hostUrlWrap('details') + '\';'}"/><label for="detailsButton">Details</label> 
+			                <input type="radio" id="statisticsButton" name="hostMenu" data-bind="attr : { onclick: 'document.location.href=\'' + hostUrlWrap('statistics') + '\';'}"/><label for="statisticsButton">Statistics</label> 
+			                <input type="radio" id="reportButton" name="hostMenu" data-bind="attr : { onclick: 'document.location.href=\'' + hostUrl() + '/report' + '\';'}"/><label for="reportButton">Report</label> 
+			                <input type="radio" id="eventsButton" name="hostMenu" data-bind="attr : { onclick: 'document.location.href=\'' + hostUrl() + '/events' + '\';'}"/><label for="eventsButton">Event log</label> 
+			            </div>
+					</li>
+					<li style="float: right;">
+						<a href="#!logout" id="logout">Log out</a>
+					</li>
+					<li style="float: right;">
+						<span id="hostWarningsTotal" class="ui-button ui-widget ui-state-default ui-button-text-only ui-deep ui-deep-red">
+	    					<span class="ui-button-text">
+								<span data-bind="text: hostsWarningTotal"></span> Issues 
+							</span>
+	    				</span>
+					</li>
+					<li style="float: right;">
+						<span id="hostsTotal" class="ui-button ui-widget ui-state-default ui-button-text-only ui-deep">
+	    					<span class="ui-button-text">
+								<span data-bind="text: hostsTotal"></span> Servers  
+							</span>
+	    				</span>
+					</li>
+				</ul>
+			</div>    
+			<div id="grid" class="trail">
+	        	<div id="hostsGrid"></div>
+	        	<div data-bind="css : {'not-a-single-f' : gridView() == 'issues' && hostsWarningTotal() === 0 }" class="hiddenOK"></div>
+	    	</div>
+	        <div id="overview" class="trail" data-bind="template: { name: 'groupedHostsTemplate', foreach: groups() }"></div>
+	        <div id="host" class="trail">
+	            <div id="timeControls">
+	                <div class="timeControlWidget">
+	                	<ul>
+	                		<li>
+	            				<span class="ui-button ui-widget ui-state-default ui-button-text-only ui-deep">
+	            					<span class="ui-button-text dateDisplay" data-bind="text: hostDate().toString('ddd MMM d yyyy hh:mm:ss')">
+	            						<span data-bind="text: hostDate().toString('ddd MMM d yyyy hh:mm:ss')">now</span>
+	            					</span>
+	            				</span>
+			                </li>
+	                		<li>
+			                    <div id="timeControlList">
+			                        <a id="minusDay" data-bind="attr: { href : magicDateUrl('addDays', -1, 'minusDay')}">-1d</a>
+			                        <a id="minusHour" data-bind="attr: { href : magicDateUrl('addHours', -1, 'minusHour')}">-1h</a>
+			                        <a id="minus5m" data-bind="attr: { href : magicDateUrl('addMinutes', -5, 'minus5m')}">-5m</a>
+			                        <a id="minus1m" data-bind="attr: { href : magicDateUrl('addMinutes', -1, 'minus1m')}">-1m</a>
+			                        <a id="now" data-bind="attr: { href : hostUrl() + '/' + hostView() + (hostView() == 'statistics'?'/interval/'+interval():'')}">now</a>
+			                        <a id="plus1m" data-bind="attr: { onclick: newDate('addMinutes', 1)?'':'return false;', href : magicDateUrl('addMinutes', 1, 'plus1m')}"">+1m</a>
+			                        <a id="plus5m" data-bind="attr: { onclick: newDate('addMinutes', 5)?'':'return false;', href : magicDateUrl('addMinutes', 5, 'plus5m')}"">+5m</a>
+			                        <a id="plusHour" data-bind="attr: { onclick: newDate('addHours', 1)?'':'return false;', href : magicDateUrl('addHours', 1, 'plusHour')}">+1h</a>
+			                        <a id="plusDay" data-bind="attr: { onclick: newDate('addDays', 1)?'':'return false;', href : magicDateUrl('addDays', 1, 'plusDay')}">+1d</a>
+			                    </div>
+	                		</li>
+	                		<li>
+	                			<input type="text" id="hostTimeSearch" title="Search date"/>
+	                		</li>
+	                		<li>
+	                			<div id="intervalMenu">
+				                    <input type="radio" id="interval43200" class="month" name="intervalMenu" data-bind="attr : { onclick: 'document.location.href=\'' + hostUrlWrap('statistics') + '/interval/43200\';'}"/><label for="interval43200">month</label>
+				                    <input type="radio" id="interval10080" class="week" name="intervalMenu" data-bind="attr : { onclick: 'document.location.href=\'' + hostUrlWrap('statistics') + '/interval/10080\';'}"/><label for="interval10080">week</label>
+				                    <input type="radio" id="interval1440" class="day" name="intervalMenu"  data-bind="attr : { onclick: 'document.location.href=\'' + hostUrlWrap('statistics') + '/interval/1440\';'}"/><label for="interval1440">day</label>
+				                    <input type="radio" id="interval320" class="hours4" name="intervalMenu"  data-bind="attr : { onclick: 'document.location.href=\'' + hostUrlWrap('statistics') + '/interval/320\';'}"/><label for="interval320">4 hours</label>
+				                </div>
+	                		</li>
+	                	</ul>
+	                </div>
+	            </div>
+	            <div id="hostInformation" class="trail">
+            		<div class="overlay withMenu"></div>
+	            	<div class="fullContainerWithMenu">
+			            <div class="overview">
+			                <h2>General information for <span data-bind="text: host().hostLabel()"></span> / <span data-bind="text: host().hostname()"></span></h2>
+							<span class="properties">
+					       		<h3>Host information</h3>
+					       		<div class="column">
+					       			<div class="property">
+										<div class="label">Hostname</div>
+										<div class="value"><span data-bind="text: host().hostname()"></span></div>
+					       			</div>
+					       			<div class="property">
+										<div class="label">Status</div>
+										<div class="value"><b><span data-bind="text: host().status()"></span></b></div>
+					       			</div>
+					       			<div class="property">
+										<div class="label">Uptime</div>
+										<div class="value"><span data-bind="text: host().uptimeString()"></span></div>
+					       			</div>
+					       		</div>
+					       		<div class="column">
+					       			<div class="property">
+										<div class="label">IP Address</div>
+										<div class="value"><span data-bind="text: host().hostID()"></span></div>
+					       			</div>
+					       			<div class="property">
+										<div class="label">Record Timestamp</div>
+										<div class="value"><span data-bind="text: host().recordTime()?Date.parseDate(host().recordTime()).toString('ddd MMM d yyyy hh:mm:ss'):''"></span></div>
+					       			</div>
+					       			<div class="property">
+										<div class="label">System</div>
+										<div class="value"><span data-bind="text: host().operatingSystem()"></span> <span data-bind="text: host().hardwarePlatform()"></span></div>
+					       			</div>
+					       		</div>
+					       		<div style="clear:both"></div>
+							</span>
+							<span class="properties">
+					       		<h3>Resources</h3>
+					       		<div class="column">
+					       			<div class="property">
+										<div class="label">CPU</div>
+										<div class="value">
+											<span class="percent-complete-bar" style="width: 100px; position: relative; float:left; margin-left: 0px; padding-left: 0px;">
+												<span class="background" data-bind="style : { width : host().cpuUsage() + '%'}"></span>
+											</span>
+											<div style="float:left; margin-left: 4px;"><span data-bind="text: host().cpuUsage().toFixed(2)"></span> %</div>
+											</div>
+									</div>
+					       			<div class="property">
+										<div class="label">Load average</div>
+										<div class="value"><span data-bind="text: host().loadAverage()"></span></div>
+					       			</div>
+					       			<div class="property" data-bind="style : { visibility : host().processList().length>0?'visible':'hidden'}">
+										<div class="label">Processes</div>
+										<div class="value"><span data-bind="text: host().processList().length"></span></div>
+					       			</div>
+					       		</div>
+					       		<div class="column">
+					       			<div class="property">
+										<div class="label">Free RAM</div>
+										<div class="value"><span data-bind="text: host().freeRAM()"></span><span data-bind="text: ' / ' + host().totalRAM()?host().totalRAM():''"></span> MB</div>
+					       			</div>
+					       			<div class="property">
+										<div class="label">Free Swap</div>
+										<div class="value"><span data-bind="text: host().freeSwapMemory()"></span> MB</div>
+					       			</div>
+					       			<div class="property">
+										<div class="label">Disk i/o</div>
+										<div class="value"><span data-bind="text: host().diskActivity()"></span> io/s</div>
+					       			</div>
+					       		</div>
+					       		<div style="clear:both"></div>
+							</span>
+							<span class="properties">
+						    	<h3>Network</h3>
+						    	<div class="column">
+						    		<div class="property">
+										<div class="label">Traffic in/out</div>
+										<div class="value"><span data-bind="text: host().networkIn()"></span> / <span data-bind="text: host().networkOut()"></span> Kbit/s</div>
+						    		</div>
+						    		<div class="property">
+										<div class="label">RTT</div>
+										<div class="value"><span data-bind="text: host().roundTripTime()"></span> ms</div>
+						   			</div>
+						   		</div>
+						   		<div class="column">
+						    		<div class="property">
+										<div class="label">Packet-loss</div>
+										<div class="value"><span data-bind="text: host().packetLoss()"></span> %</div>
+							    	</div>
+							    	<div class="property" data-bind="style : { visibility : host().ioWaitPercent() !== ''?'visible':'hidden'}">
+										<div class="label">I/O Wait</div>
+										<div class="value"><span data-bind="text: host().ioWaitPercent()"></span> %</div>
+							    	</div>
+						    	</div>
+						      		<div style="clear:both"></div>
+							</span>
+			            </div>
+			        </div>
+		        </div>
+	            <div id="hostDetails" class="trail" data-onshow="$('#timeControls').show()">
+	            	<div class="overlay withMenu"></div>
+	            	<div class="fullContainerWithMenu">
+			            <div class="overview">
+			                <h2>Details for <span data-bind="text: host().hostLabel()"></span> / <span data-bind="text: host().hostname()"></span></h2>
+	           				<span class="properties">
+		                        <div class="column" data-bind="style : { display : host().mountedFilesystems().length > 0 ? 'block' : 'none'}">
+		                        	<h3>Mounts</h3>
+	                                <div id="mountsGrid" class="detailsGrid"></div>
+	                            </div>
+	                            <div class="column" data-bind="style : { display : host().networkPorts() && _.keys(host().networkPorts()).length > 0 ? 'block' : 'none'}">
+	                                <h3>Ports</h3>
+	                                <div id="tcpGrid" class="detailsGrid"></div>
+	                            </div>
+	                            <div class="column" data-bind="style : { display : host().processList() && _.keys(host().processList()).length > 0 ? 'block' : 'none'}">
+	                                <h3>Processes</h3>
+	                                <div id="processGrid" class="detailsGrid"></div>
+	                            </div>
+	                            <div class="column" data-bind="style : { display: host().runningServices().length > 0 ? 'block' : 'none'}">
+	                                <h3>Running services</h3>
+	                                <div id="runningServicesGrid" class="detailsGrid"></div>
+	                            </div>
+	                            <div class="column" data-bind="style : { display : host().virtualHosts() && _.keys(host().virtualHosts()).length > 0 ? 'block' : 'none'}">
+	                                <h3>Virtual hosts</h3>
+	                                <div id="virtualHostsGrid" class="detailsGrid"></div>
+	                            </div>
+	                            <div class="column" data-bind="style : { display : host().consoleSessions() && _.keys(host().consoleSessions()).length > 0 ? 'block' : 'none'}">
+	                                <h3>Console sessions</h3>
+	                                <div id="consoleSessionsGrid" class="detailsGrid"></div>
+	                            </div>
+		                    </span>
+		                </div>
+	               </div>
+	            </div>
+	            <div id="hostGraphs" class="trail">
+					<div class="overlay withMenu"></div>
+	            	<div class="fullContainerWithMenu">
+			            <div class="overview">
+			                <h2>Statistics for <span data-bind="text: host().hostLabel()"></span> / <span data-bind="text: host().hostname()"></span></h2>
+							<span class="">
+					       		<div id="hostLoadChart" class="detailedGraph"></div>
+				                <div id="cpuUsageChart" class="detailedGraph"></div>
+				                <div id="networkInChart" class="detailedGraph"></div>
+				                <div id="networkOutChart" class="detailedGraph"></div>
+				                <div id="diskIOChart" class="detailedGraph"></div>
+				                <div id="RTTChart" class="detailedGraph"></div>
+				                <div id="ioWaitChart" class="detailedGraph"></div>
+				                <div id="ramChart" class="detailedGraph"></div>
+				                <div id="swapChart" class="detailedGraph"></div>
+				                <div id="totalMemoryChart" class="detailedGraph"></div>
+				                <div id="processesChart" class="detailedGraph"></div>
+				       		</span>
+			       		</div>
+		       		</div>	
+				</div>
+	            <div id="hostReport" class="trail">
+	            	<div class="overlay"></div>
+	            	<div class="fullContainer">
+						<div class="overview">
+							<h2>Report for <span data-bind="text: host().hostLabel()"></span> / <span data-bind="text: host().hostname"></span></h2>
+							<span class="properties">
+					       		<div class="column" style="width: 620px;">
+						       		<span data-bind="html: host().report.html"></span>
+					       		</div>
+						    </span>
+						</div>
+					</div>	
+	            </div>
+	            <div id="hostEvents" class="trail">
+	            	<div class="overlay"></div>
+	            	<div class="fullContainer">
+						<div class="overview">
+							<h2>Event log on <span data-bind="text: host().hostLabel()"></span> / <span data-bind="text: host().hostname"></span></h2>
+							<span class="properties">
+					       		<div class="column" style="width: 620px;">
+						       		<div id="eventLogGrid" class="detailsGrid"></div>
+					       		</div>
+						    </span>
+						</div>
+					</div>	
+	            </div>
+	        </div>
+	         <div id="statusBar">
+	         	<div id="warAndPeace">
+	         		<span id="war"><a href="#!war">War room mode</a></span>
+	         		<span id="peace"><a href="#!peace">Regular screen mode</a></span>
+	         		
+	         	</div>
+				<div id="loadingIndicator"></div>
+			</div>
+	    </div>
+	   
+	    <div id="loggedOut" class="trail"><center>You have been logged out, click <a href="#!showLogin">here</a> to log in.</center></div>
+	    <div id="404" class="trail">404</div>
+	    <div id="500" class="trail">500</div>
+	    <div id="502" class="trail">502</div>
+	</body>
+</html>

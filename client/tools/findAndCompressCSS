@@ -1,0 +1,4 @@
+#!/bin/bash
+
+(for f in `more $1 | grep href.*\.css\" | sed -e 's/.*href="//' -e 's/".*//'`; do echo $f; done )
+

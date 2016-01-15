@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml.schema>
+  <xml.class name="nl.madscience.svc.n2.groups">
+    <xml.type>dict</xml.type>
+    <xml.proplist>
+      <xml.member class="group"/>
+    </xml.proplist>
+  </xml.class>
+  
+  <xml.class name="group">
+    <xml.type>dict</xml.type>
+    <xml.attributes>
+      <xml.attribute label="name" mandatory="true" isindex="true">
+        <xml.type>string</xml.type>
+      </xml.attribute>
+    </xml.attributes>
+    <xml.proplist>
+      <xml.member class="members" id="members"/>
+      <xml.member class="summary" id="summary"/>
+    </xml.proplist>
+  </xml.class>
+  
+  <xml.class name="members">
+    <xml.type>dict</xml.type>
+    <xml.proplist>
+      <xml.member class="member"/>
+    </xml.proplist>
+  </xml.class>
+  
+  <xml.class name="member">
+    <xml.type>void</xml.type>
+    <xml.attributes>
+      <xml.attribute label="ip" mandatory="true" isindex="true">
+        <xml.type>string</xml.type>
+      </xml.attribute>
+      <xml.attribute label="netin"><xml.type>integer</xml.type></xml.attribute>
+      <xml.attribute label="netout"><xml.type>integer</xml.type></xml.attribute>
+      <xml.attribute label="rtt"><xml.type>float</xml.type></xml.attribute>
+      <xml.attribute label="cpu"><xml.type>float</xml.type></xml.attribute>
+      <xml.attribute label="loadavg"><xml.type>float</xml.type></xml.attribute>
+      <xml.attribute label="status"><xml.type>string</xml.type></xml.attribute>
+	</xml.attributes>
+  </xml.class>
+  
+  <xml.class name="summary">
+    <xml.type>dict</xml.type>
+    <xml.proplist>
+      <xml.member class="netin" id="netin" type="integer"/>
+      <xml.member class="netout" id="netout" type="integer"/>
+      <xml.member class="rtt" id="rtt" type="float"/>
+      <xml.member class="counts.warning" id="counts.warning" type="integer"/>
+      <xml.member class="counts.alert" id="counts.alert" type="integer"/>
+      <xml.member class="counts.critical" id="counts.critical" type="integer"/>
+    </xml.proplist>
+  </xml.class>
+
+</xml.schema>

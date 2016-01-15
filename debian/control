@@ -1,0 +1,12 @@
+Source: n2view
+Section: misc
+Priority: optional
+Maintainer: XLSHosting packager <opensource@xlshosting.com>
+Build-Depends: debhelper (>= 5), zlib1g-dev, python
+Standards-Version: 3.7.2
+
+Package: n2view
+Architecture: any
+Depends: zlib1g
+Description: n2 viewing frontend
+ This is the AJAXified n2 viewing frontend.

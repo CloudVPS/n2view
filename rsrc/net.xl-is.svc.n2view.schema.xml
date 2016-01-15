@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml.schema>
+  <xml.class name="net.xl-is.svc.n2view.conf">
+    <xml.type>dict</xml.type>
+    <xml.proplist>
+      <xml.member class="system" id="system"/>
+    </xml.proplist>
+  </xml.class>
+  <xml.class name="system">
+    <xml.type>dict</xml.type>
+    <xml.proplist>
+      <xml.member class="eventlog" id="eventlog"/>
+      <xml.member class="divertrfc822" id="divertrfc822" type="string"/>
+      <xml.member class="coreurl" id="coreurl" type="string"/>
+      <xml.member class="whois" id="whois" type="string"/>
+      <xml.member class="proxysrc" id="proxysrc" type="string"/>
+    </xml.proplist>
+  </xml.class>
+  <xml.class name="eventlog">
+    <xml.type>string</xml.type>
+  </xml.class>
+</xml.schema>

@@ -1,0 +1,8 @@
+@section reportuser
+	<!-- if there was an n2analyze.example function in analyze-user.lua,
+	     and it returned true, the @if block will be executed -->
+	@if $report_example$ == true
+		<h2>Example</h2>
+		The host triggered the example condition. Congratulations are in order.
+	@endif
+

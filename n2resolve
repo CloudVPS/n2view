@@ -1,0 +1,17 @@
+#!/bin/sh
+
+[ -x $(dirname $0)/n2resolve.local ] && exec $(dirname $0)/n2resolve.local "$1"
+
+getreverse() {
+	host $1 2>&1 | grep "pointer" | head -1 | sed -e "s/.* //;s/\..*//"
+}
+
+addr="$1"
+if [ -z "$addr" ]; then
+  exit 0
+fi
+obj=$(getreverse $addr)
+if [ -z "$obj" ]; then
+  obj="$addr"
+fi
+echo $obj

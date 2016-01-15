@@ -1,0 +1,259 @@
+
+@section canweblameapache
+
+	  <!-- apache blame -->
+	  @if "$report_blamememory$" == "httpd"
+	    @set blameapache = 1
+	  @else
+	    @if "$report_blamememory$" == "apache"
+	      @set blameapache = 1
+	    @else
+	      @if "$report_blamememory$" == "apache2"
+	        @set blameapache = 1
+	      @endif
+	    @endif
+	  @endif
+
+@section analysis
+
+@if $anythingtoreport$ == false
+  The report generator found nothing worth mentioning about this server. If
+  you are experiencing problems that you think should be reported here,
+  contact your system administrator.
+  
+@else
+  @if $report_netflutter$ == true
+    <h3>Network Flutter</h3>
+	<p>The roundtrip time measured between the monitoring host and this
+	server has peaks that are far above the average. The network
+	conditions in the monitoring path may be sub-optimal.</p>
+  @endif
+  
+  @if $report_leak$ == true
+    <h3>Memory Leak</h3>
+    <p>The average amount of available
+    system memory is showing a downward trend. A process on the system
+    may be slowly leaking memory.</p>
+  @endif
+  
+  @if $report_loadavg$ == true
+    <h3>Load Average</h3>
+    <p>The server's loadaverage is pretty high on average. This may be
+    an indication of a lack of processing resources. If you are
+    having performance problems with this server, take a look at
+    its available memory and CPU resources.</p>
+  @endif
+  
+  @if $report_loadpeak$ == true
+    <h3>Load Peaks</h3>
+  	<p>At times, this server has very high peaks in its loadavg. This
+  	could be a scheduled task that takes a lot of resources. You may
+  	want to consider spreading out this task over a longer time as to
+  	not have it monopolize the resources of the server while it is
+  	running.</p>
+  @endif
+  
+  @if $report_pwnage$ == true
+    <h3>Perl Script</h3>
+  	<p>A <b>perl</b> process taking up a lot of resources has been
+  	spotted running under the apache user. This may be an indication
+  	of a server hack.</p>
+  @endif
+  
+  @if $report_ioavg$ == true
+    <h3>I/O Throughput</h3>
+	<p>The average i/o workload of this server is on the high side. you
+	may want to look into processes that do a lot of disk work to see
+	if their i/o patterns can be made lighter. If the server is
+	running MySQL, one of its databases may need better indexes.
+	Adding RAM may also alleviate i/o pressure by giving more room
+	to the filesystem cache.</p>
+  @endif
+  
+  @if $report_iopeaks$ == true
+    <h3>I/O Peaks</h3>
+	<p>The machine is showing occasional periods of rather strong i/o
+	usage. Either an occasionally accessed web page or a script
+	running at regular intervals through some other means is
+	putting high demands on disk access.</p>
+  @endif
+  
+  @if $report_toomuchmem$ == true
+    <h3>RAM Overcapacity</h3>
+	<p>This machine has over 2 gigabytes of free RAM at any given time of
+	day. This is usually much more than what is needed to keep a proper
+	filesystem cache. If you are not anticipating a lot of growth
+	in the access patterns to this server and it is a virtualized
+	environment, you may want to consider giving it less RAM.</p>
+  @endif
+  
+  @if $report_ircbot$ == true
+    <h3>IRC programs</h3>
+	<p>An irc bot or bouncer was found running on the server. If you didn't
+	install this program, that may be a sign of unauthorized use of the
+	machine.<p>
+  @endif
+  
+  @if $report_phphog$ == true
+    <h3>PHP Resource Consumption</h3>
+	<p>The server is showing regular CPU spikes with Apache- or PHP-related
+	processes. There may be an inefficient script involved with one of the
+	hosted websites that may become a real problem if the number of
+	visitors to that site increases.</p>
+	
+  @endif
+  
+  @if $report_mysqlhog$ == true
+    <h3>MySQL Resource Consumption</h3>
+	<p>The MySQL server is showing regular CPU spikes. This may be a sign
+	of insufficiently indexed queries that may also result in large i/o
+	load on the server. </p>
+  @endif
+  
+  @if $report_cpuhog$ == true
+    <h3>CPU Hogging</h3>
+  	<p>The process <b>$report_cpuhogger$</b> is having an unusual
+  	appetite for a lot of CPU resources, which may be a problem for
+  	the performance of other processes.</p>
+  	
+	  @if "$report_cpuhogger$" == "mysqld_safe"
+	    <p>
+	    This is the MySQL guard script and shouldn't be taking up
+	    so much CPU time. This is known to happen some times and
+	    seems to point towards a buggy initscript. You can safely
+	    kill the haywire process.
+	    </p>
+	  @endif
+	  @if "$report_cpuhogger$" == "nash-hotplug"
+	    <p>
+	  	This is known to happen in virtualized environments. In general,
+	  	you can do without this service on any server that has no need for
+	  	fancy hot-plug features.
+	  	</p>
+	  @endif
+	  @if "$report_cpuhogger$" == "clamd"
+	    <p>
+	    ClamAV is not known for its ecological view on system
+	    resources. If this is a dedicated mailserver, there may
+	    be very little you can do, save for investing in more
+	    CPU resources.
+	    </p>
+	  @endif
+	  @if "$report_cpuhogger$" == "spamd"
+	    <p>SpamAssassin doesn't excactly work for free, so this
+	    could just be a matter of sheer mail volume. Sometimes
+	    the process also gets stuck on its own lockfiles. If
+	    you're having doubts, strace the process and see if
+	    it's actually doing work and not running around in
+	    circles.
+	    </p>
+	  @endif
+  @endif
+
+  @if $report_cpupeaks$ == true
+    <h3>Frequent CPU Peaks</h3>
+    <p>The server is frequently using the CPU at peak capacity of
+    95% or more. This limits any further performance that can be
+    extracted from it. It may also indicate a badly written
+    program or script interfering with the server's normal operation.
+    </p>
+    <p>
+    The <b>$report_cpuhogger$</b> process seems to be taking up most
+    of the CPU time.
+	  @if "$report_cpuhogger$" == "mysqld_safe"
+	    This is the MySQL guard script and shouldn't be taking up
+	    so much CPU time. 
+	  @endif
+	  @if "$report_cpuhogger$" == "nash-hotplug"
+	  	This is known to happen in virtualized environments. In general,
+	  	you can do without this service on any server that has no need for fancy
+	  	hot-plug features.
+	  @endif
+	  @if "$report_cpuhogger$" == "clamd"
+	    ClamAV is not known for its ecological view on system
+	    resources. If this is a dedicated mailserver, there may
+	    be very little you can do, save for investing in more
+	    CPU resources.
+	  @endif
+	  @if "$report_cpuhogger$" == "spamd"
+	    SpamAssassin doesn't excactly work for free, so this
+	    could just be a matter of sheer mail volume. Sometimes
+	    the process also gets stuck on its own lockfiles. If
+	    you're having doubts, strace the process and see if
+	    it's actually doing work and not running around in
+	    circles.
+	  @endif
+	  
+    </p>
+  @endif
+  
+  <!-- point A -->
+  
+  @if $report_outofmemory$ == true
+    <h3>Out of Memory</h3>
+	<p>This machine has encountered one or more situations where it
+	completely ran out of memory.
+	
+	@if "$report_blamememory$" == ""
+	  The culprit is unknown.</p>
+	@else
+	  The most likely culprit is
+	  the <b>$report_blamememory$</b> process.
+	  
+	  <<canweblameapache blameapache="0">>
+	  
+	  @if $#blameapache$ == 1
+	    You may be able to decrease its memory footprint by lowering
+	    the <i>MaxClients</i> settings and lowering the lifetime
+	    of apache children by setting a low limit for <i>MaxRequestsPerChild</i>.
+	  @endif
+	  </p>
+	@endif
+  @endif
+  
+  <!-- point B -->
+
+  @if $report_outofram$ == true
+    <h3>Out of RAM</h3>
+	<p>This machine has encountered one or more situations where it
+	completely ran out of physical RAM. So far there's enough swap
+	space left to take the occasional hit, but swapping has a
+	negative performance impact. Small amounts of free RAM also
+	prevent the kernel from keeping up a disk cache, degrading
+	performance further.
+	</p>
+	@if "$report_blamememory$" == ""
+	  <p>The culprit process is unknown.</p>
+	@else
+	  <p>The most likely culprit is
+	  the <b>$report_blamememory$</b> process.
+	  
+	  <<canweblameapache blameapache="0">>
+	  
+	  @if $#blameapache$ == 1
+	    You may be able to decrease its memory footprint by lowering
+	    the <i>MaxClients</i> settings and lowering the lifetime
+	    of apache children by setting a low limit for <i>MaxRequestsPerChild</i>.
+	  @endif
+	  </p>
+	@endif
+  @endif
+  
+  <!-- point C -->
+
+  @if $report_lowram$ == true
+    <h3>Low RAM</h3>
+    <p>The average amount of free physical memory is pretty low. This
+    doesn't leave a lot of room for filesystem caches, which could
+    negatively impact the performance of the server.</p>
+  @endif
+  
+  @if $report_reboots$ == true
+    <h3>Reboots</h3>
+    <p>The server is showing a number of reboots in the past 24 hours
+        that could indicate system crashes.</p>
+  @endif
+  
+  <<reportuser>>
+  
+@endif

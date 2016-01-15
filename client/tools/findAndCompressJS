@@ -1,0 +1,6 @@
+#!/bin/bash
+
+(for f in `more $1 | grep script.*src | sed -e 's/.*src="/source\/www\//' -e 's/">.*//'`; do 
+	cat $f | sed -E 's/console.(log|debug|info|...|count)\((.*)\);?//g'
+	echo -e "\n"
+done ) | tools/jsmin.py > $2

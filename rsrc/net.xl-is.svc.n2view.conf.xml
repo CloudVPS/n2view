@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<net.xl-is.svc.n2view.conf>
+  <system>
+    <eventlog>/var/log/n2/n2view-event.log</eventlog>
+    <divertrfc822>https://interface.xlshosting.com/</divertrfc822>
+    <coreurl>https://core.xlshosting.com/</coreurl>
+    <proxysrc>194.60.207.30</proxysrc>
+    <whois>whois.xl-is.net</whois>
+  </system>
+</net.xl-is.svc.n2view.conf>

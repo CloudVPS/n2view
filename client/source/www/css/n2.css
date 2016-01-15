@@ -1,0 +1,102 @@
+* {
+	font-family: Lucida Grande, Lucida Sans, Helvetica Neue, Helvetica, Arial;
+	font-size: 1em;
+}
+#menu-header {
+    background-image: url(/images/n2/menu-header.png);
+    background-repeat: repeat-x;
+    height: 96px;
+    font-size:13px;
+    font-weight:bold;
+    font-family: Lucida Grande, Lucida Sans, Helvetica Neue, Helvetica, Arial;
+    text-shadow: 1px 0px 0px #eeeeee;
+    padding-top: 4px;
+}
+.slick-header-column.ui-state-default {
+    border-right: solid 1px #c0c0c0;
+    border-top: solid 1px #c0c0c0;
+    border-bottom: solid 1px #c0c0c0;
+    background-image: url(/images/n2/table-header.png);
+    background-repeat: repeat-x;
+    font-family: Lucida Grande, Lucida Sans, Helvetica Neue, Helvetica, Arial;
+    padding-top: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-bottom: 0px;
+    font-size:11px;
+    height: 13px;
+    line-height: 10px;
+}
+
+.slick-header-column-sorted {
+    font-style: normal;
+}
+
+.slick-sort-indicator {
+    float : right;
+    
+   
+    background-repeat: no-repeat;
+    height: 9px;
+    width: 9px;
+}
+
+.slick-sort-indicator-asc {
+     background-image: url(/images/n2/sort-asc.png);
+}
+.slick-sort-indicator-desc {
+    margin-top: 1px;
+    background-image: url(/images/n2/sort-desc.png);
+}
+.ui-state-default {
+    color: #000;
+    border: 0px solid #000;
+}
+
+.slick-cell {
+    font-size: 11px;
+    margin-left: 0px;
+    padding-left: 3px;
+    border: 0px solid #000;
+    font-family: Lucida Grande, Lucida Sans, Helvetica Neue, Helvetica, Arial;
+}
+
+.slick-row.even .slick-cell {
+   background: white;
+}
+.slick-row.odd .slick-cell {
+   background: #edf3fe;
+}
+
+.slick-group-toggle {
+    width: 9px;
+    height: 9px;
+    background-repeat: no-repeat;
+}
+
+.slick-row.even .slick-cell .slick-group-toggle.expanded {
+   background-image: url(/images/n2/group-even-expanded.png);
+}
+
+.slick-row.even .slick-cell .slick-group-toggle.collapsed {
+    background-image: url(/images/n2/group-even-collapsed.png);
+}
+
+.slick-row.odd .slick-cell .slick-group-toggle.expanded {
+   background-image: url(/images/n2/group-odd-expanded.png);
+}
+
+.slick-row.odd .slick-cell .slick-group-toggle.collapsed {
+    background-image: url(/images/n2/group-odd-collapsed.png);
+}
+
+.percent-complete-bar {
+    display: inline-block;
+    height: 6px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+#smallGraphs {
+	overflow: scroll;
+}

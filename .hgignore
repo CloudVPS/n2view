@@ -1,0 +1,8 @@
+syntax: glob
+*.o
+platform.h
+n2view.app
+n2view.exe
+configure.paths
+makeinclude
+n2view

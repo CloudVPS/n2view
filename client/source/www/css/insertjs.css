@@ -1,0 +1,763 @@
+html, body {
+	background-color: #EEEEEE;
+	font-family: Arial,sans-serif;
+	
+	overflow:hidden;
+}
+
+html, body, ul {
+	margin:0px;
+	padding:0px;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.login-label, .login-input {
+	float: left;
+	margin: .1em 24px .2em 0;
+	font-size: 14px;
+	text-shadow: 0 1px 0 rgba(255,255,255,0.5); 
+}
+.fake-line {
+	width: 100%;
+	border-top: 1px solid #000000;
+	margin-top: 10px;
+}
+
+#hiddenLogin input[type='text'], #hiddenLogin input[type='password'] {
+	width: 100%;
+}
+
+#statusBar {
+	position: fixed;
+	height: 20px;
+	margin-top: 2px solid #fff;
+	background-color: #DFDFDF;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 100000;
+}
+
+#loginButton {
+	float: right;
+	margin-top: 10px;
+}
+
+#grid, #gridMain, #host, #overview, #login {
+	top: 50px;
+	position: fixed;
+	bottom: 21px;
+	left: 0px;
+	right: 0px;
+	background-color: #DFDFDF;
+}
+
+#login { 
+	top: 0px;	
+}
+
+#host {
+	top: 53px;
+}
+
+
+#grid, #gridMain {
+}
+
+#hostsGrid { 
+	position:absolute; top:0; left:0; right:0; bottom:0; 
+}
+
+#loadingIndicator {
+	position: fixed;
+	bottom: 2px;
+	right: 0px;
+	z-index: 100000;
+	float: left;
+	margin-top: 6px;
+	width: 16px;
+	height: 16px;
+	margin-right: 6px;
+	background-image: url('/images/n2/ajax-loader.gif');
+	display: none;
+}
+
+#right {
+	position: fixed;
+	top: 240px;
+	width: 400px;
+	bottom: 0px;
+	right: 0px;
+	background-color: #FFFFFF;
+}
+.dividerBackground {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	width: 16px;
+}
+.divider {
+	height: auto;
+	width: 20px;
+}
+
+#preferencesLeft, #preferencesRight {
+	position: fixed;
+	top: 180px;
+	bottom: 0px;
+	background-color: #FFFFFF;
+}
+
+#preferencesLeft {
+	width: 300px;
+	left: 0px;
+	margin-left: 10px;
+}
+
+#preferencesRight {
+	left: 300px;
+	right: 0px;
+}
+
+.load-hi {
+	background-color: #FF0000;
+}
+
+.load-medium {
+	background-color: #FF8888;
+	
+}
+
+.ui-widget-content {
+	background-color: #EDEDED;
+}
+
+.slick-cell {
+	float: left;
+
+	border: 1px solid transparent;
+	border-right: 1px dotted silver;
+	
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	#fff-space: nowrap;
+	vertical-align: middle;
+	z-index: 1;
+	padding: 4px 2px 0px 6px;
+    margin: 0;
+
+
+	#fff-space: nowrap;
+
+	cursor: default;
+	font-size: 13px;
+	color: #000;
+	background-color: #FFFFFF;
+}
+
+.slick-row.even .slick-cell {
+	background-color: #EDF2F5;
+}
+
+.slick-row .slick-cell.selected {
+	background-color: #2d74d3;
+	color: #FFFFFF;
+}
+
+
+.slick-header.ui-state-default, .slick-headerrow.ui-state-default {
+	border-left: 1px;		
+}
+
+.slick-column-name {
+	font-size: 13px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+	border: 0px solid #000000;
+	font-weight: bold;
+}
+
+.slick-header-column-sorted {
+	background-image: -webkit-gradient( linear, left bottom, left top, color-stop(1, rgba(185,224,245, 1)), color-stop(0, rgba(146,189,214, 1)) );
+}
+
+.add {
+	border: 1px solid #000;
+}
+
+	
+.detailsGrid { 
+	height: 400px;
+	width : 420px;
+	background-color: white;
+	border-right: 1px dotted grey;
+	border-left: 1px dotted grey;
+	border-bottom: 1px dotted grey;
+}
+
+#eventLogGrid {
+	width: 840px;
+	height: 840px;
+}
+
+#hostDetailsSmallInserts{
+	position: fixed;
+	top: 82px;
+	bottom: 0px;
+	right: 0px;
+	width: 399px;
+	background-color: #F4F4F4;
+	border-left: 1px solid #8B8B8B;
+}
+
+.n2bar {
+	width: 100%;
+}
+
+.percent-complete-bar {
+	width: auto;
+	position: absolute;
+	left: 2px;
+	right: 4px;
+	height: 14px;
+	display: inline-block;
+	border: 1px solid #444;
+	margin-right: 4px;
+	margin-left: 4px;
+	box-shadow:inset 0 2px 6px #444;
+	background-color: #aaa;
+}
+.percent-complete-bar .background {
+	display: block;
+	height: 14px;
+	background: rgba(185,224,245,1); /* for non-css3 browsers */
+	border-right: 1px solid #888;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#000000');
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(185,224,245,1)), to(rgba(146,189,214,1)));
+	background: -moz-linear-gradient(top, rgba(185,224,245,1),  rgba(146,189,214,1));
+}
+
+#main {
+	height: 100%;
+}
+.properties .column {
+	width: 480px;
+	float: left;
+}
+
+.properties .column .property .label {
+	width: 240px;
+	float: left;
+}
+.properties .column .property .value {
+	width: 200px;
+	float: left;
+}
+
+.detailedGraph {
+	width: 46%;
+	height: 300px;
+	float: left;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+.counterItem {
+	display:block;
+	float:left;
+	margin-top: 10px;
+	
+	margin-left: 4px;
+	margin-right: 4px;
+}
+.counterItem {
+	display: none;
+}
+
+.tabMenuDivider {
+	width: 10px;
+	float: left;
+}
+
+.timeControlWidget {
+	width: 100%;
+	overflow: hidden;
+	background-color: #ddd;
+	margin-top: 1px;
+}
+
+.searchWidget {
+	margin-right: 5px;
+	width: 168px;
+	float : left;
+}
+
+.searchWidget input, #hostTimeSearch, .ezpz-hint{
+	width: 168px;
+	height: 25px;
+	font-size: 13px;
+}
+
+.currentDate, .currentTime {
+	padding-top: 8px;
+    float: left;
+    margin-left: 10px;
+}
+
+#detailsLoader {
+	font-family: Arial,sans-serif;
+	font-size: 14px;
+	line-height: 1.4;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+h2 {
+	font-family: Arial,sans-serif;
+	font-weight: bold;
+    line-height: 1.4;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+h3 {
+	font-family: Arial,sans-serif;
+	font-weight: bold;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+	color: #888;
+	
+}
+
+.timeControlList {
+	float: left;
+	margin-left: 8px;
+	margin-top: 8px;
+}
+#intervalRadioGroup label .ui-button-text, .timeControlList label .ui-button-text{
+	font-size: 9px;
+}
+
+#intervalRadioGroup {
+	float: left;
+}
+.timeControlButtonEnabled {
+	color: #000;
+	cursor: pointer;
+}
+
+.timeControlButtonDisabled {
+	color: #ddd;
+}
+#toolbar {
+	background-color: #dfdfdf;
+	width: 100%; 
+	height: 52px; 
+	border-bottom:1px solid #aaa;
+	overflow: hidden;
+}
+	
+#hostBar, #hostMenuItems, #backToHosts{
+	position: fixed;
+	z-index: 100;
+	top: 4px;
+	left: 180px;
+	overflow: hidden;
+	display: block;
+	height: 36px;
+	padding-top: 4px;
+}
+
+
+#hostMenuItems {
+	height: 33px;
+	padding-right: 10px;
+}
+
+#hostBar {
+	width: 500px;
+	left: 68px;
+}
+
+#hostFilters {
+	float: left;
+}
+
+#backToHosts {
+	left: 70px;
+	height: 29px;
+	margin-top: 4px;
+	padding-top: 0px;
+}
+
+#logo {
+	padding: 0px;
+	height: 29px;
+	background-color: #DFDFDF;
+	box-shadow: none;
+}
+	
+#logo img {
+	width: 20px;
+	height: 20px;
+}
+
+.bigSearch {
+	font-weight: 14px;
+}
+.ezpz-hint {
+	color: #ccc;
+}
+
+.host-status-DEAD {
+	color: #e00;
+}
+
+.host-status-DEAD, .host-status-CRIT, .host-status-STALE, .host-status-WARN, .host-status-ALERT {
+	font-weight: bold;
+}
+
+.cell-right {
+	text-align: right;
+}
+.overlay {
+	background-color: #EEE;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 1000000;
+}
+
+.withMenu { 
+	top: 47px;
+}
+
+
+.full {
+	background-color: #EEE;
+	border-top: 1px solid #fff;
+}
+#hostOverview {
+	overflow: auto;
+
+}
+.overview {
+	margin-left: 12px;
+	margin-bottom : 12px;
+}
+
+.properties .column .property {
+	height: 26px;
+}
+
+.properties .column .property .label {
+	padding-right: 10px;
+	font-weight: bold;
+}
+.fullContainer, .fullContainerWithMenu {
+	position: absolute;
+	overflow: auto;
+	top: 14px;
+	bottom: 0px;
+	right: 0px;
+	left: 0px;
+	background-color: #EEE;
+	border-top: 1px solid #fff;
+}
+
+.fullContainer {
+	top: -2px;
+}
+.fullContainerWithMenu {
+	top: 46px;
+}
+
+#hostTimeInput {
+	position:fixed;
+	top: 64px;
+	right: 0px;
+	display: block;
+}
+
+#hostTimeInputField, #hostTimeOutput, #hostTimeInput span, #intervalControls span {
+	float: left;
+}
+#intervalControls span {
+	margin-right: 8px;
+}
+
+.menuText {
+	display: block;
+	line-height: 1.4;
+	font-size: 12px;
+	font-weight: bold;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+	color: #1C4257;
+	margin-top: 3px;
+}
+
+#hostTimeInputField {
+	font-size: 12px;
+	margin-left: 8px;
+}
+
+#intervalControls {
+	position:fixed;
+	top: 64px;
+	right: 220px;
+	display: block;
+	z-index: 100000;
+}
+
+/* beautiful CSS dates - Kroc Camen - camendesign.com
+   creative commons 3.0 attribution. share + remix this, just include "Kroc Camen" and/or "camendesign.com" in your CSS */
+/* ======================================================================================================================= */
+
+div[rel~=bookmark]		{
+	height: 70px;
+	display: block; 
+	position: relative;
+	margin-bottom: 18px;
+	border: 1px solid #888885; 
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0px 0px 4px #777;
+    -webkit-box-shadow: 0px 0px 4px #777;
+    box-shadow: 0px 0px 4px #777;
+	
+/* day */			 
+	font: 36px/36px "Helvetica Neue", Arial, sans-serif; 
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 2px; text-decoration: none; color: #666;
+	background: #fcfcfc url("/images/date-day-bg.png") repeat-x left 18px;
+}
+div[rel~=bookmark] sup		/* lift the suffix, so that the number is fully centered */
+				{position: absolute; padding-top: 4px;
+				 font-size: 10px; line-height: 14px; letter-spacing: normal;}
+
+/* year + month */
+div[rel~=bookmark] abbr		{display: block; font: 16px Verdana, sans-serif; letter-spacing: normal; color: #fff; font-weight: bold;
+				 -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px;}
+/* month */
+div[rel~=bookmark]>:first-child	{width: 80px; margin: -1px 0 0 -1px; padding: 0 5px; border: 1px solid #832a28;
+				 line-height: 22px; text-align: left; text-transform: uppercase;
+				 background: #a33537 url("/images/date-month-bg.png") repeat-x bottom left;}
+/* year */
+div[rel~=bookmark] sup+abbr	{position: absolute; top: 0; left: 0; width: 82px; padding: 0 3px;
+				 border: 1px solid #a33537; border-bottom: 1px solid #832a28;
+				 line-height: 20px; color: #eaa; text-align: right;}
+/* time */
+div[rel~=bookmark] sub {
+	display: none; 
+	height: 17px; 
+	border-top: 1px solid #bbd; 
+	margin: 0 3px; 
+	color: #aac;
+	font: 9px/16px Verdana, sans-serif; 
+	letter-spacing: normal; 
+	text-align: center; 
+}
+
+
+/* ======================================================================================================================= */
+
+.clock {
+	width: 185px;
+	overflow: hidden;
+	display : block;
+	height: 72px;
+	float: left;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	box-shadow:inset 0 0 6px #000000;
+	background-color: #444;
+}
+.clockWrapperFront img, .clockWrapperBack img {
+	width: 28px;
+	height: 28px;
+	padding:0px; 
+	border-width:0px; 
+	margin:0.8px; 
+	display: block;
+	float: left;
+	-moz-box-shadow: 0px 0px 8px #777;
+    -webkit-box-shadow: 0px 0px 8px #777;
+    box-shadow: 0px 0px 8px #777;
+}
+
+.clockWrapper {
+	margin: 8px;
+}
+
+
+.droppedIn {
+	background: -webkit-gradient( linear, left bottom, left top, color-stop(1, rgba(200, 0, 0, 1)), color-stop(0, rgba(160, 0, 0, 1)) );
+	height: 14px;
+	padding: 8px;
+	font-size: 14px;
+	margin: 0px;
+}
+#hostMenu li {
+	float: left;
+}
+
+.repeating {
+	color: red;
+}
+#menuBar {
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 9px;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	
+	background-color: #dfdfdf;
+	border-bottom:1px solid #aaa;
+	overflow: hidden;
+}
+
+#timeControls {
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-bottom: 13px;
+	border-bottom: 1px solid #aaa;
+}
+#menuBar li, #timeControls li {
+	float: left;
+	margin-right: 8px;
+}
+
+
+#timeControls .ui-button-text, #timeControls input[type="text"] {
+	font-size: 9px;
+}
+
+#timeControls .badge {
+	font-size: 9px;
+	padding: .5em 1em;
+}
+
+#timeControls input[type="text"]  {
+	height: 1.5em;
+}
+
+.ui-deep {
+	-moz-border-radius: 3px; 
+	-webkit-border-radius: 3px;
+	box-shadow:inset 0 0 5px #000;
+	background: #444;
+	color: white;
+	cursor: default;
+}
+	
+.ui-deep .ui-button-text {
+	text-shadow: 0 0 0px rgba(255, 255, 255, 0.6);
+}
+.badge {
+	display: inline-block;
+	font-size: 0.92em;
+	font-weight: bold;
+	background-color: #444;
+	-moz-border-radius: 3px; 
+	-webkit-border-radius: 3px;
+	color: white;
+	padding: .4em 1em;
+	
+	text-shadow: 0 0 1px rgba(255, 255, 255, 0.6);
+	display: block;
+	line-height: 1.4;
+	text-align: center;
+	box-shadow:inset 0 0 5px #000;
+}
+
+.ui-deep-red {
+	background-color: #700;	
+}
+
+.ui-deep-green {
+	background-color: #070;	
+}
+.hiddenOK {
+	position: relative;
+	width: 256px;
+	height: 256px;
+	margin-left:-128px;
+	margin-top: 40px;
+	left:50%;
+	z-index: 100000;
+	background: url(../images/1320330084_Symbol-Check.png);
+	visibility: hidden;
+}
+.not-a-single-f {
+	visibility: visible;
+}
+
+#bigLoader {
+	display: none;
+	z-index: 1000000000000000;
+	position: fixed;
+	height: 180px;
+	width: 180px;
+	margin-left:-90px;
+	margin-top: -90px;
+	left:50%;
+	top: 50%;
+}
+
+#bigLoader .background {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #333;
+	filter: alpha(opacity=70);
+	-moz-opacity:0.7;
+	-khtml-opacity: 0.7;
+	opacity: 0.7;
+	-moz-box-shadow: 0px 0px 8px #777;
+    -webkit-box-shadow: 0px 0px 8px #777;
+    box-shadow: 0px 0px 8px #777;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+}
+
+#bigLoader .message {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	top: 120px;
+	text-align: center;
+	line-height: 1.4;
+	font-size: 20px;
+	font-weight: bold;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+	color: #eee;
+}
+
+#bootLoaderSpinner {
+	width: 120px;
+	height: 120px;
+	margin-left:-60px;
+	margin-top: 45px;
+	left:50%;
+	position: absolute;
+}
+
+#warAndPeace {
+	display: block;
+	width: 400px;
+	height: 20px;
+	margin-left: 4px;
+}
+
+#warAndPeace .ui-button { 
+	height: 15px;	
+}
+#warAndPeace .ui-button-text { 
+	font-size: 10px;	
+	padding: .1em 1em;
+}
