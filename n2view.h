@@ -189,6 +189,23 @@ protected:
 };
 
 //  -------------------------------------------------------------------------
+/// Cache for group data
+//  -------------------------------------------------------------------------
+class GroupCache : public thread
+{
+public:
+                         GroupCache (void);
+                        ~GroupCache (void);
+                        
+    void                 run (void);
+    void                 acquire (void);
+    value               *get (void);
+
+protected:
+    lock<value>          data;
+};
+
+//  -------------------------------------------------------------------------
 /// Handler for the /host/* REST tree
 //  -------------------------------------------------------------------------
 class RESTView : public httpdobject
@@ -197,6 +214,11 @@ public:
 						 RESTView (N2ViewApp *papp, LabelResolver &r);
 						~RESTView (void);
 						
+    void                 start (void)
+                         {
+                            groupcache.spawn();
+                         }
+                         
 	string				*getLabel (const string &);
 
 	int					 run (string &uri, string &postbody,
