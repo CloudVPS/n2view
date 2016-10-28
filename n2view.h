@@ -189,23 +189,6 @@ protected:
 };
 
 //  -------------------------------------------------------------------------
-/// Cache for group data
-//  -------------------------------------------------------------------------
-class GroupCache : public thread
-{
-public:
-                         GroupCache (void);
-                        ~GroupCache (void);
-                        
-    void                 run (void);
-    void                 acquire (void);
-    value               *get (void);
-
-protected:
-    lock<value>          data;
-};
-
-//  -------------------------------------------------------------------------
 /// Handler for the /host/* REST tree
 //  -------------------------------------------------------------------------
 class RESTView : public httpdobject
