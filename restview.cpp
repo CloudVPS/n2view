@@ -4,6 +4,54 @@
 #include <grace/system.h>
 #include <zlib.h>
 
+GroupCache::GroupCache (void)
+{
+    acquire();
+}
+
+GroupCache::~GroupCache (void)
+{
+}
+
+void GroupCache::run (void)
+{
+    while (true)
+    {
+        acquire();
+        sleep (10);
+    }
+}
+
+value *GroupCache::get (void)
+{
+    returnclass (value) res retain;
+    sharedsection (data)
+    {
+        res = data;
+    }
+    return &res;
+}
+
+void GroupCache::acquire (void)
+{
+	string groupjson;
+	value groups;
+	string cmd = "/usr/bin/n2groups -j";
+	
+	systemprocess pgroups (cmd);
+	pgroups.run ();
+	while (! pgroups.eof())
+	{
+		groupjson += pgroups.read (4096);
+	}
+	pgroups.serialize ();
+	groups.fromjson (groupjson);
+    exclusivesection (data)
+    {
+        data = groups;
+    }
+}
+
 // ==========================================================================
 // CONSTRUCTOR RESTView
 // ==========================================================================
@@ -19,6 +67,7 @@ RESTView::RESTView (N2ViewApp *papp, LabelResolver &r)
 	tmpl.build (scripts);
 	hostschema.load ("schema:n2host.schema.xml");
 	groupschema.load ("schema:n2groups.schema.xml");
+	groupcache.spawn();
 }
 
 // ==========================================================================
